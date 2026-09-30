@@ -134,9 +134,6 @@ text{text-rendering:geometricPrecision}
  *{animation:none!important}}
 """
 
-# Static profile: no motion anywhere. Every element is drawn in its final
-# state, so the keyframes above are simply not shipped.
-BASE_CSS = "text{text-rendering:geometricPrecision}"
 
 def defs(t, w, h, gid, fade_from_left=True):
     mask = (f"<linearGradient id='{gid}fg' x1='0' x2='1'><stop offset='0' stop-color='#fff' stop-opacity='.25'/>"
@@ -439,6 +436,8 @@ def card(p, theme):
     lw = width("mono", label.upper(), 11, 0.12)
     dx = W - X - lw - 16
     s.raw(f"<circle cx='{dx:.1f}' cy='52' r='3.5' fill='{t[tone]}'/>")
+    if live:
+        s.raw(f"<circle cx='{dx:.1f}' cy='52' r='3.5' fill='{t[tone]}' class='pulse'/>")
     s.text(W - X, 56, [("mono", label, None)], 11, t[tone], anchor="end", tracking=0.12, upper=True)
 
     s.raw(f"<line x1='{X}' y1='96' x2='{X + 28}' y2='96' stroke='{t['rose']}' stroke-width='2'/>")
